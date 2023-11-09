@@ -1,0 +1,29 @@
+import "../styles.css";
+import Nav_bar from "./Layout.js";
+import { useLayoutEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Card, Row, Col } from "react-bootstrap";
+
+export default function HomePage() {
+  return (
+    <div className="App">
+      <Row>
+        <Col xs={3}>
+          <QueueCard />
+        </Col>
+        <Col xs={9}>
+          <QueueCard />
+        </Col>
+      </Row>
+    </div>
+  );
+}
+function QueueCard() {
+  return (
+    <Card>
+      <Card.Body>
+        <Card.Text> Max </Card.Text>
+      </Card.Body>
+    </Card>
+  );
+}
