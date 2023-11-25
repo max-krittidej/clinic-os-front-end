@@ -7,18 +7,30 @@ import {useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 
 export default function Login(){
-    const [cookies,setCookie,removeCookie] = useCookies(["login"]);
+
+
+    const [cookies,setCookie,removeCookie] = useCookies(["login_new"]);
+
+
     const handleSetCookie=()=>{
-        
-        
-        setCookie("login","yes",{path:"/"})
-        
+        login = {
+            "is_logged": True,
+            "expiry": None,
+            "token": None,
+            "role": None
+        }
+
+        jsonLogin = JSON.stringify()
+        setCookie("login_new","yes",{path:"/"})
+    }
+    console.log(cookies)
+    if (cookies != {} || cookies != null) {
+            cookiesDict = JSON.parse(cookies)
+            console.log(cookiesDict)
     }
     
-
     return (
         <div className = 'login'>
-       
             <Button onClick = {handleSetCookie}>btn</Button>
             
             <h1>{cookies.patient}</h1>
