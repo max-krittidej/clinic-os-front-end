@@ -13,7 +13,7 @@ const Nav_bar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <LinkContainer to="/patient">
+            <LinkContainer to="/patientInfo">
               <Nav.Link>Patient</Nav.Link>
              
             </LinkContainer>
