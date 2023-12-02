@@ -10,12 +10,7 @@ import FormRange from "react-bootstrap/esm/FormRange";
 function PatientForm() {
 
   const [Patient, setPatient] = useState({})
-  const [Name, setName] = useState("")
-  const [Email, setEmail] = useState("")
-  const [PhoneNo, setPhoneNo] = useState("")
-  const [Year, setYear] = useState("")
-  const [Month, setMonth] = useState("")
-  const [Day, setDay] = useState("")
+  const [File, setFile]=useState({})
   const navigate = useNavigate()
   const baseUrl = "http://127.0.0.1:8080";
   const [post, setPost] = React.useState(null);
@@ -25,6 +20,23 @@ function PatientForm() {
       ans.push(i);
     }
     return ans
+  }
+  const handleFile = (event) => {
+    const name = event.target.name;
+    var file = event.target.files[0];
+    var reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onloadend = function() {
+      var based64data = reader.result;
+      setFile((values) => ({
+        ...values, [name]: based64data
+      }))
+    }
+
+    // setFile((values) => ({
+    //   ...values, [name]: 
+    // }))
   }
   const handleChange = (event) => {
     const name = event.target.name;
@@ -39,32 +51,21 @@ function PatientForm() {
   })
   const months = range(1, 12)
   const days = range(1, 31)
-  const EmailChange = (event) => {
+ 
 
-    setEmail(event.target.value)
-  }
-  const NameChange = (event) => {
-    setName(event.target.value)
-  }
-  const PhoneChange = (event) => {
-    setPhoneNo(event.target.value)
-  }
-  const YearChange = (event) => {
-    setYear(event.target.value)
-
-  }
+  
   function createPost() {
-    axios.post(baseUrl + "/create_patient", { email: Email, name: Name, PhoneNo: PhoneNo }).then((response) => {
+    axios.post(baseUrl + "/create_patient", { email: Patient.email, name: Patient.name, phoneNo: Patient.phoneNo }).then((response) => {
       setPost(response.data)
     });
   }
   const submitHandler = (event) => {
     event.preventDefault();
     createPost()
-    navigate("/patientInfo", { state: { email: Email, name: Name, phoneNo: PhoneNo } });
-    setEmail("")
-    setName("")
-    setPhoneNo("")
+    console.log(Patient)
+    console.log(File)
+    navigate("/patientInfo", { state: { email: Patient.email, name: Patient.name, phoneNo: Patient.phoneNo ,photo:File.photo} });
+    setPatient({})
   }
 
 
@@ -89,7 +90,7 @@ function PatientForm() {
 
         <Form.Group className="mb-3" controlId="Phone NO.">
           <Form.Label>Year</Form.Label>
-          <Form.Select aria-label="Default select example" name="year" value={Patient.year} onChange={YearChange}>
+          <Form.Select aria-label="Default select example" name="year" value={Patient.year} onChange={handleChange}>
             <option>Open this select menu</option>
             {years}
           </Form.Select >
@@ -99,6 +100,10 @@ function PatientForm() {
           <Form.Check type="radio" label="Female" name="gender" value = "female" checked={Patient.gender === "female"}onChange={handleChange}/>
         </ Form.Group >
 
+        <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label>Photo</Form.Label>
+        <Form.Control type="file" name="photo"  onChange={handleFile}/>
+      </Form.Group>
         
         
         <Button variant="primary" type="submit" >

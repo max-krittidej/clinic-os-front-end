@@ -10,9 +10,13 @@ import Nav_bar from "./components/Layout.js";
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
   /* required for forms just write required bro
-  change names of files pls my brain hurts
-  put all the states in patient form into one state
   phone number type change 
+  complete login and login check
+  photo filefield second and third
+  patient info get from database and not from use navigate
+  moment js for datetime in cookies
+  payment
+  search
   */
 
 

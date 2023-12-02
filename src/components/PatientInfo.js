@@ -10,6 +10,7 @@ export default function Patient() {
       Patient
       {state?.email}
       {state?.name}
+      <img src ={state?.photo} width = "500px" />
     </div>
   );
 }
