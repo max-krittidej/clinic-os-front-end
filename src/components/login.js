@@ -10,8 +10,7 @@ export default function Login(){
 
 
     const [cookies,setCookie,removeCookie] = useCookies(["login_new"]);
-
-
+    const [Patient, setPatient] = useState({})
     const handleSetCookie=()=>{
         login = {
             "is_logged": True,
@@ -23,17 +22,44 @@ export default function Login(){
         jsonLogin = JSON.stringify()
         setCookie("login_new","yes",{path:"/"})
     }
-    console.log(cookies)
-    if (cookies != {} || cookies != null) {
-            cookiesDict = JSON.parse(cookies)
-            console.log(cookiesDict)
-    }
-    
+    const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setPatient((values) => ({
+      ...values, [name]: value
+    }))
+  }
+    function createPost() {
+    axios.post(baseUrl + "/create_patient", { email: Patient.email, name: Patient.name, phoneNo: Patient.phoneNo }).then((response) => {
+      setPost(response.data)
+    });
+  }
+   const submitHandler = (event) => {
+    event.preventDefault();
+    createPost()
+    navigate("/patientInfo", { state: { username:Patient.username, password:Patient.password} });
+    setPatient({})
+  }
+
     return (
-        <div className = 'login'>
-            <Button onClick = {handleSetCookie}>btn</Button>
-            
-            <h1>{cookies.patient}</h1>
-        </div>
+<Container>
+      <Form onSubmit={submitHandler}>
+        
+        <Form.Group className="mb-3" controlId="formName">
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="text" name="username" placeholder="username" value={Patient.name || ""} onChange={handleChange} required />
+        </Form.Group>   
+    
+    <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="email" name="password" placeholder="Password" value={Patient.password || ""} onChange={handleChange} required />
+        </Form.Group>
+    
+        <Button variant="primary" type="submit" >
+          Submit
+        </Button>
+      </Form>
+    </Container>
+  );
     )
 }
