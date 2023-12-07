@@ -23,5 +23,7 @@ export default function Login(){
 
         jsonLogin = JSON.stringify(login)
         setCookie("login",jsonLogin,{path:"/"})
+        const navigate = useNavigate()
+        navigate("/login")
     }
 }
