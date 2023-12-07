@@ -9,31 +9,19 @@ import {useCookies} from "react-cookie";
 export default function Login(){
 
 
-    const [cookies,setCookie,removeCookie] = useCookies(["login_new"]);
-
-
-    const handleSetCookie=()=>{
+    const [cookies,setCookie,removeCookie] = useCookies(["login"]);
+    var cookie = JSON.parse(cookies)
+    if (cookie.expiry > moment() && cookie.is_logged == True){
+        return True
+    } else {
         login = {
-            "is_logged": True,
+            "is_logged": False,
             "expiry": None,
             "token": None,
             "role": None
         }
 
-        jsonLogin = JSON.stringify()
-        setCookie("login_new","yes",{path:"/"})
+        jsonLogin = JSON.stringify(login)
+        setCookie("login",jsonLogin,{path:"/"})
     }
-    console.log(cookies)
-    if (cookies != {} || cookies != null) {
-            cookiesDict = JSON.parse(cookies)
-            console.log(cookiesDict)
-    }
-    
-    return (
-        <div className = 'login'>
-            <Button onClick = {handleSetCookie}>btn</Button>
-            
-            <h1>{cookies.patient}</h1>
-        </div>
-    )
 }
