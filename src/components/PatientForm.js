@@ -80,32 +80,41 @@ function PatientForm() {
 
         <Form.Group className="mb-3" controlId="formName">
           <Form.Label>Name</Form.Label>
-          <Form.Control type="text" name="name" placeholder="text" value={Patient.name || ""} onChange={handleChange} />
+          <Form.Control type="text" name="name" placeholder="text" value={Patient.name || ""} onChange={handleChange} required />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="Phone NO.">
           <Form.Label>PhoneNo</Form.Label>
-          <Form.Control type="number" name="phoneNo" placeholder="phoneNo" value={Patient.phoneNo} onChange={handleChange} />
+          <Form.Control type="number" name="phoneNo" placeholder="phoneNo" value={Patient.phoneNo} onChange={handleChange} required/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="Phone NO.">
           <Form.Label>Year</Form.Label>
-          <Form.Select aria-label="Default select example" name="year" value={Patient.year} onChange={handleChange}>
+          <Form.Select aria-label="Default select example" name="year" value={Patient.year} onChange={handleChange} required>
             <option>Open this select menu</option>
             {years}
           </Form.Select >
 
-          <Form.Label>Gender</Form.Label>
-          <Form.Check type="radio" label="Male" name="gender" value = "male" checked={Patient.gender === "male"}onChange={handleChange}/>
+          <Form.Label>Sex</Form.Label>
+          <Form.Check type="radio" label="Male" name="gender" value = "male" checked={Patient.gender === "male"}onChange={handleChange} />
           <Form.Check type="radio" label="Female" name="gender" value = "female" checked={Patient.gender === "female"}onChange={handleChange}/>
         </ Form.Group >
 
         <Form.Group controlId="formFile" className="mb-3">
         <Form.Label>Photo</Form.Label>
-        <Form.Control type="file" name="photo"  onChange={handleFile}/>
+        <Form.Control type="file" name="photo1"  onChange={handleFile}/>
       </Form.Group>
-        
-        
+
+        <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label>Photo</Form.Label>
+        <Form.Control type="file" name="photo2"  onChange={handleFile}/>
+      </Form.Group>
+
+            <Form.Group controlId="formFile" className="mb-3">
+        <Form.Label>Photo</Form.Label>
+        <Form.Control type="file" name="photo3"  onChange={handleFile}/>
+      </Form.Group>
+            
         <Button variant="primary" type="submit" >
           Submit
         </Button>
