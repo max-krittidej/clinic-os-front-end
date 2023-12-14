@@ -11,6 +11,8 @@ export default function Login(){
 
     const [cookies,setCookie,removeCookie] = useCookies(["login_new"]);
     const [Patient, setPatient] = useState({})
+    const[post,setPost]=React.useState(null);
+    
     const handleSetCookie=()=>{
         login = {
             "is_logged": True,
@@ -38,7 +40,9 @@ export default function Login(){
    const submitHandler = (event) => {
     event.preventDefault();
     createPost()
+    if (post==true){
     navigate("/");
+    }
     setPatient({})
   }
 
