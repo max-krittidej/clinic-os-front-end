@@ -30,14 +30,15 @@ export default function Login(){
     }))
   }
     function createPost() {
-    axios.post(baseUrl + "/create_patient", { email: Patient.email, name: Patient.name, phoneNo: Patient.phoneNo }).then((response) => {
+        const baseUrl = "http://127.0.0.1:8080";
+    axios.post(baseUrl + "/check_account", { username: Patient.username, password: Patient.password}).then((response) => {
       setPost(response.data)
     });
   }
    const submitHandler = (event) => {
     event.preventDefault();
     createPost()
-    navigate("/patientInfo", { state: { username:Patient.username, password:Patient.password} });
+    navigate("/");
     setPatient({})
   }
 
