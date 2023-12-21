@@ -39,12 +39,9 @@ export default function Login(){
     await axios.post(baseUrl + "/check_account", { username: Patient.username, password: Patient.password}).then((response) => {
       var result = response.data
       console.log(result["auth"])
-       setPost(result["auth"], () => {
-        console.log("FInish setting up auth")
-        console.log("POSTTTT")
-        console.log(post)
-       })
-
+      setPost(result["auth"])
+      console.log("FInish setting up auth")
+      console.log(post)
       
      })
      console.log("After post")

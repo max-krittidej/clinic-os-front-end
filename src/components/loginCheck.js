@@ -9,7 +9,6 @@ export default function LoginCheck(){
     const [cookies,setCookie,removeCookie] = useCookies(["login"]);
 
     if (!Object.keys(cookies).length ) {
-        console.log("Cookies not exist")
         return <Navigate to="/login" replace ={true} />
     }
     
