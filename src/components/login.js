@@ -13,6 +13,7 @@ export default function Login(){
 
     const [cookies,setCookie,removeCookie] = useCookies(["login_new"]);
     const [Patient, setPatient] = useState({})
+    const[post,setPost]=React.useState(null); 
     const handleSetCookie=()=>{
         
     }
@@ -23,16 +24,34 @@ export default function Login(){
       ...values, [name]: value
     }))
   }
-    function createPost() {
-    axios.post(baseUrl + "/create_patient", { email: Patient.email, name: Patient.name, phoneNo: Patient.phoneNo }).then((response) => {
-      setPost(response.data)
+    async function createPost() {
+        const baseUrl = "http://127.0.0.1:8080";
+    await axios.post(baseUrl + "/check_account", { username: Patient.username, password: Patient.password}).then((response) => {
+      var result = response.data
+      setPost(result["auth"])
     });
   }
   const navigate = useNavigate()
-   const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     // createPost()
-    // setPatient({})
+    const baseUrl = "http://127.0.0.1:8080";
+    await axios.post(baseUrl + "/check_account", { username: Patient.username, password: Patient.password}).then((response) => {
+      var result = response.data
+      console.log(result["auth"])
+       setPost(result["auth"], () => {
+        console.log("FInish setting up auth")
+        console.log("POSTTTT")
+        console.log(post)
+       })
+
+      
+     })
+     console.log("After post")
+    //  console.log(post)
+    if (post){
+      
+    setPatient({})
     var login = {
         "is_logged": true,
         "expiry": moment().add(1,"h"),
@@ -40,7 +59,9 @@ export default function Login(){
         "role": null
     }
     setCookie("login",login,{path:"/"})
-    navigate("/patientForm" )
+    navigate("/" )
+    } 
+    
   }
 
     return (
@@ -56,7 +77,11 @@ export default function Login(){
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" name="password" placeholder="Password" value={Patient.password || ""} onChange={handleChange} required />
         </Form.Group>
-    
+        {!post && post != null? (
+          <div>incorrect username or password</div>
+        ):(
+          <div></div>
+        )}
         <Button variant="primary" type="submit" >
           Submit
         </Button>
