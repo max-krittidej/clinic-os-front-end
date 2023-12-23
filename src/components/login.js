@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -14,6 +14,23 @@ export default function Login(){
     const [cookies,setCookie,removeCookie] = useCookies(["login_new"]);
     const [Patient, setPatient] = useState({})
     const[post,setPost]=React.useState(null); 
+    useEffect(()=> {
+      if(post){
+        
+      setPatient({})
+      var login = {
+          "is_logged": true,
+          "expiry": moment().add(1,"h"),
+          "token": null,
+          "role": null
+      }
+      setCookie("login",login,{path:"/"})
+      navigate("/" )
+     
+      } ;
+      
+    },[post])
+
     const handleSetCookie=()=>{
         
     }
@@ -36,33 +53,15 @@ export default function Login(){
     event.preventDefault();
     // createPost()
     const baseUrl = "http://127.0.0.1:8080";
-    await axios.post(baseUrl + "/check_account", { username: Patient.username, password: Patient.password}).then((response) => {
+    axios.post(baseUrl + "/check_account", { username: Patient.username, password: Patient.password}).then((response) => {
       var result = response.data
-      console.log(result["auth"])
       setPost(result["auth"])
-      console.log("FInish setting up auth")
-      console.log(post)
-      
      })
-     console.log("After post")
-    //  console.log(post)
-    if (post){
-      
-    setPatient({})
-    var login = {
-        "is_logged": true,
-        "expiry": moment().add(1,"h"),
-        "token": null,
-        "role": null
     }
-    setCookie("login",login,{path:"/"})
-    navigate("/" )
-    } 
-    
-  }
-
     return (
 <Container>
+
+
       <Form onSubmit={submitHandler}>
         
         <Form.Group className="mb-3" controlId="formName">
@@ -86,4 +85,4 @@ export default function Login(){
     </Container>
   );
     
-}
+  }
