@@ -7,7 +7,7 @@ import { Card, Row, Col } from "react-bootstrap";
 export default function HomePage() {
   return (
     <div className="App">
-      home
+      <h1>Home</h1>
       <Row>
       
         <Col xs={3}>
