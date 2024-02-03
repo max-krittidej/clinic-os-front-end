@@ -1,6 +1,6 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "--build-arg","BACKEND_ENDPOINT=${_BACK_END_URL}","-t","gcr.io/$PROJECT_ID/clinic_os_front_end"]
+    args: ["build","-t","gcr.io/$PROJECT_ID/clinic_os_front_end"]
   - name: "gcr.io/cloud-builders/docker"
     args: ["push","gcr.io/$PROJECT_ID/clinic_os_front_end"]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
