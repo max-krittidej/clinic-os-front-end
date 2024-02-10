@@ -5,6 +5,6 @@ steps:
     args: ["push","gcr.io/$PROJECT_ID/clinic_os_front_end"]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
-    args: ['run', 'deploy', 'clinic_os_front_end', '--image', 'gcr.io/$PROJECT_ID/clinic_os_front_end', '--region', 'asia-southeast1','--port', '3000', '--set-env-vars','BACK_END_URL=${_BACK_END_URL}']
+    args: ['run', 'deploy', 'clinic-os-front-end', '--image', 'gcr.io/$PROJECT_ID/clinic_os_front_end', '--region', 'asia-southeast1','--port', '3000', '--set-env-vars','BACK_END_URL=${_BACK_END_URL}']
 images:
   - gcr.io/$PROJECT_ID/clinic_os_front_end
